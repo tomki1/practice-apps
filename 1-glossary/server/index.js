@@ -21,18 +21,19 @@ app.get('/words', (req, res) => {
 
 app.post('/words', (req, res) => {
   // db.addWord(req.body.word, req.body.definition);
-  addWord("hola", "spanish greeting");
+  addWord("nIHaos", "mandarin greetingg");
   res.send('post request to /words')
 
 })
 
 app.put('/words', (req, res) => {
+  updateDefinition("nihaos", "coolr greeting");
   res.send('put request to /words')
 })
 
 
 app.delete('/words', (req, res) => {
-  res.send('delete request to /words')
+  res.send('delete request to /words');
 })
 
 

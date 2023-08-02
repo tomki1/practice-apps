@@ -20,10 +20,11 @@ var getAll = () => {
 
 }
 
-var addWord = (newWord, newDef) => {
+var addWord = async (newWord, newDef) => {
 
-  // if duplicate word, return
-  if (Word.find({name: newWord})) {
+  // if duplicate word (case insensitive), return
+  const arr = await Word.find({name: { '$regex': newWord, $options: 'i' }});
+  if (arr.length !== 0) {
     console.log("duplicate name");
     return;
   }
@@ -32,9 +33,15 @@ var addWord = (newWord, newDef) => {
   console.log("word inserted");
 }
 
-var updateDefinition = (word, newDef) => {
-  console.log("in update definition")
+var updateDefinition = async (word, newDef) => {
+  Word.findOneAndUpdate({name: {'$regex': word, $options: 'i'}}, {definition: newDef}, function (error, doc) {
+    if (error) {
+      console.log("error updating")
+    }
+    console.log(doc);
 
+  });
+  // console.log("update def",arr);
 }
 
 module.exports.db = db;
