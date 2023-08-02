@@ -14,16 +14,16 @@ const glossarySchema = new mongoose.Schema({
 
 const Word = mongoose.model('word', glossarySchema);
 
+// get all words from glosssary
 var getAll = () => {
   return Word.find({});
-
-
 }
 
+// add word to glossary
 var addWord = async (newWord, newDef) => {
-
   // if duplicate word (case insensitive), return
   const arr = await Word.find({name: { '$regex': newWord, $options: 'i' }});
+  console.log(arr);
   if (arr.length !== 0) {
     console.log("duplicate name");
     return;
@@ -33,21 +33,34 @@ var addWord = async (newWord, newDef) => {
   console.log("word inserted");
 }
 
-var updateDefinition = async (word, newDef) => {
+// update definition of word in glossary
+var updateDefinition = (word, newDef) => {
   Word.findOneAndUpdate({name: {'$regex': word, $options: 'i'}}, {definition: newDef}, function (error, doc) {
     if (error) {
-      console.log("error updating")
+      console.log("error updating");
+      return;
     }
     console.log(doc);
 
   });
-  // console.log("update def",arr);
+}
+
+// delete word from glossary
+var deleteWord = (word) => {
+  Word.findOneAndDelete({name: {'$regex': word, $options: 'i'}}, function (error, doc) {
+    if (error) {
+      console.log("error deleting");
+      return;
+    }
+    console.log("deleted", doc);
+  });
 }
 
 module.exports.db = db;
 module.exports.addWord = addWord;
 module.exports.getAll = getAll;
 module.exports.updateDefinition = updateDefinition;
+module.exports.deleteWord = deleteWord;
 
 // 1. Use mongoose to establish a connection to MongoDB
 // 2. Set up any schema and models needed by the app

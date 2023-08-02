@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const {db, addWord, getAll, updateDefinition} = require("./db.js");
+const {db, addWord, getAll, updateDefinition, deleteWord} = require("./db.js");
 
 
 const app = express();
@@ -21,7 +21,7 @@ app.get('/words', (req, res) => {
 
 app.post('/words', (req, res) => {
   // db.addWord(req.body.word, req.body.definition);
-  addWord("nIHaos", "mandarin greetingg");
+  addWord("yo", "eng greetingg");
   res.send('post request to /words')
 
 })
@@ -33,6 +33,7 @@ app.put('/words', (req, res) => {
 
 
 app.delete('/words', (req, res) => {
+  deleteWord("nihaos");
   res.send('delete request to /words');
 })
 
