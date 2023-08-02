@@ -12,11 +12,35 @@ const glossarySchema = new mongoose.Schema({
   definition: String
 });
 
+const Word = mongoose.model('word', glossarySchema);
 
+var getAll = () => {
+  return Word.find({});
+
+
+}
+
+var addWord = (newWord, newDef) => {
+
+  // if duplicate word, return
+  if (Word.find({name: newWord})) {
+    console.log("duplicate name");
+    return;
+  }
+  // create new document
+  Word.create({name: newWord, definition: newDef});
+  console.log("word inserted");
+}
+
+var updateDefinition = (word, newDef) => {
+  console.log("in update definition")
+
+}
 
 module.exports.db = db;
-
-
+module.exports.addWord = addWord;
+module.exports.getAll = getAll;
+module.exports.updateDefinition = updateDefinition;
 
 // 1. Use mongoose to establish a connection to MongoDB
 // 2. Set up any schema and models needed by the app

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const db = require("./db.js");
+const {db, addWord, getAll, updateDefinition} = require("./db.js");
 
 
 const app = express();
@@ -10,14 +10,18 @@ app.use(express.json());
 // Serves up all static and generated assets in in a specified folder.
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
+
+
 // routes
 
 app.get('/words', (req, res) => {
-  res.send('get request to /words')
-
+  getAll()
+    .then((data) => {res.send(data)});
 })
 
 app.post('/words', (req, res) => {
+  // db.addWord(req.body.word, req.body.definition);
+  addWord("hola", "spanish greeting");
   res.send('post request to /words')
 
 })
