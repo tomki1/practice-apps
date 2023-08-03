@@ -46,22 +46,16 @@ var updateDefinition = (word, newDef) => {
 }
 
 // delete word from glossary
-var deleteWord = (word) => {
-  Word.findOneAndDelete({name: {'$regex': word, $options: 'i'}}, function (error, doc) {
-    if (error) {
-      console.log("error deleting");
-      return;
-    }
-    console.log("deleted", doc);
-  });
+var deleteWord = (wordId) => {
+  Word.findByIdAndDelete(wordId).exec();
 }
 
 module.exports.db = db;
+module.exports.Word = Word;
 module.exports.addWord = addWord;
 module.exports.getAll = getAll;
 module.exports.updateDefinition = updateDefinition;
 module.exports.deleteWord = deleteWord;
-
 // 1. Use mongoose to establish a connection to MongoDB
 // 2. Set up any schema and models needed by the app
 // 3. Export the models

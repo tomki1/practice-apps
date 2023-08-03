@@ -2,11 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const {db, addWord, getAll, updateDefinition, deleteWord} = require("./db.js");
+const {seedData} = require("./seedScript.js");
 
 
 const app = express();
 
 app.use(express.json());
+
+// generate sample data
+seedData();
+
 // Serves up all static and generated assets in in a specified folder.
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -22,19 +27,19 @@ app.get('/words', (req, res) => {
 app.post('/words', (req, res) => {
   // db.addWord(req.body.word, req.body.definition);
   addWord("yo", "eng greetingg");
-  res.send('post request to /words')
+  res.status(201).send('word added')
 
 })
 
 app.put('/words', (req, res) => {
   updateDefinition("nihaos", "coolr greeting");
-  res.send('put request to /words')
+  res.status(200).send('definition updated')
 })
 
 
 app.delete('/words', (req, res) => {
-  deleteWord("nihaos");
-  res.send('delete request to /words');
+  deleteWord(req.body.id);
+  res.status(200).send('word deleted');
 })
 
 
