@@ -29,7 +29,6 @@ var addWord = async (newWord, newDef, callback) => {
   // if duplicate word (case insensitive), return
   var exactWord = `^${newWord}$`;
   const arr = await Word.find({name: { $regex: exactWord, $options: 'i' }});
-  console.log(arr);
   if (arr.length !== 0) {
     callback("duplicate name", null);
     return;

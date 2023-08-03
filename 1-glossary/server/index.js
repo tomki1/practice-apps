@@ -29,6 +29,7 @@ app.get('/searchwords', (req, res) => {
 })
 
 app.post('/words', (req, res) => {
+  console.log("new word", req.body.name, req.body.definition);
   addWord(req.body.name, req.body.definition, (error, result) => {
     if (error) {
       res.status(500).send(error)

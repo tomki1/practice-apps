@@ -3,10 +3,6 @@ const {useState} = React;
 
 const WordEntry = ({word, index, deleteHandler, updateHandler}) => {
 
-  const [text, setText] = useState("");
-  const [showField, setShowField] = useState(false);
-
-
   // const changeHandler = (e) => {
   //   setText(e);
   //   setDefinition(e);
@@ -36,7 +32,7 @@ const WordEntry = ({word, index, deleteHandler, updateHandler}) => {
         <input type="text" id="word-definition-edit" value={text} onChange={(event) => {changeHandler(event.target.value)}}/> */}
 
 
-        <button className="show-button" onClick={(event) => {event.preventDefault(); popUp();}}>update definition</button>
+        <button className="show-button" onClick={() => {popUp();}}>update definition</button>
       </div>
     </div>
   )

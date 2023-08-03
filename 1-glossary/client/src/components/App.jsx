@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import WordList from './WordList.jsx';
 import Search from './Search.jsx';
+import AddWord from './AddWord.jsx';
 
 
 const {useState, useEffect} = React;
@@ -48,6 +49,18 @@ const App = () => {
         loadGlossary();
       })
   }
+
+  // add word
+  const addHandler = (newWord, newDef) => {
+    axios.post('/words', {
+        name: newWord,
+        definition: newDef
+    })
+      .then((response) => {
+        console.log(response)
+        loadGlossary();
+      })
+  }
   // to render page upon first load
   useEffect(loadGlossary, []);
 
@@ -69,6 +82,7 @@ const App = () => {
       <h1>Glossary</h1>
       <div>
         <Search searchDatabase={searchDatabase}/>
+        <AddWord addHandler={addHandler}/>
         <WordList words={words} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
       </div>
 
