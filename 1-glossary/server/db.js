@@ -19,18 +19,24 @@ var getAll = () => {
   return Word.find({});
 }
 
+// get searched words from glosssary
+var getSearched = async (searchTerm) => {
+  return await Word.find({name: { $regex: searchTerm, $options: 'i' }});
+}
+
 // add word to glossary
-var addWord = async (newWord, newDef) => {
+var addWord = async (newWord, newDef, callback) => {
   // if duplicate word (case insensitive), return
-  const arr = await Word.find({name: { '$regex': newWord, $options: 'i' }});
+  var exactWord = `^${newWord}$`;
+  const arr = await Word.find({name: { $regex: exactWord, $options: 'i' }});
   console.log(arr);
   if (arr.length !== 0) {
-    console.log("duplicate name");
+    callback("duplicate name", null);
     return;
   }
   // create new document
   Word.create({name: newWord, definition: newDef});
-  console.log("word inserted");
+  callback(null, "word inserted");
 }
 
 // update definition of word in glossary
@@ -56,6 +62,7 @@ module.exports.addWord = addWord;
 module.exports.getAll = getAll;
 module.exports.updateDefinition = updateDefinition;
 module.exports.deleteWord = deleteWord;
+module.exports.getSearched = getSearched;
 // 1. Use mongoose to establish a connection to MongoDB
 // 2. Set up any schema and models needed by the app
 // 3. Export the models

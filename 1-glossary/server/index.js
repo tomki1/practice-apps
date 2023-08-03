@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const {db, addWord, getAll, updateDefinition, deleteWord} = require("./db.js");
+const {db, addWord, getAll, updateDefinition, deleteWord, getSearched} = require("./db.js");
 const {seedData} = require("./seedScript.js");
 
 
@@ -24,15 +24,25 @@ app.get('/words', (req, res) => {
     .then((data) => {res.send(data)});
 })
 
+app.get('/searchwords', (req, res) => {
+  getSearched(req.query.searchTerm)
+    .then((data) => {res.send(data)});
+})
+
 app.post('/words', (req, res) => {
-  // db.addWord(req.body.word, req.body.definition);
-  addWord("yo", "eng greetingg");
-  res.status(201).send('word added')
+  addWord(req.body.name, req.body.definition, (error, result) => {
+    if (error) {
+      res.status(500).send(error)
+    } else {
+      res.status(201).send(result)
+    }
+  });
+
 
 })
 
 app.put('/words', (req, res) => {
-  updateDefinition("nihaos", "coolr greeting");
+  updateDefinition(req.body.id, req.body.definition);
   res.status(200).send('definition updated')
 })
 
