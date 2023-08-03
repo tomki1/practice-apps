@@ -40,15 +40,10 @@ var addWord = async (newWord, newDef, callback) => {
 }
 
 // update definition of word in glossary
-var updateDefinition = (word, newDef) => {
-  Word.findOneAndUpdate({name: {'$regex': word, $options: 'i'}}, {definition: newDef}, function (error, doc) {
-    if (error) {
-      console.log("error updating");
-      return;
-    }
-    console.log(doc);
+var updateDefinition = (id, newDef) => {
+  console.log(id, newDef)
+  Word.findByIdAndUpdate(id, {definition: newDef}).exec();
 
-  });
 }
 
 // delete word from glossary
