@@ -13,6 +13,8 @@ const {useState, useEffect} = React;
 const App = () => {
 
   const [words, setWords] = useState([]);
+  const [newWord, setNewWord] = useState('');
+  const [newDef, setNewDef] = useState('');
 
   // load glossary
   const loadGlossary = () => {
@@ -58,6 +60,8 @@ const App = () => {
     })
       .then((response) => {
         console.log(response)
+        setNewWord('');
+        setNewDef('')
         loadGlossary();
       })
   }
@@ -82,7 +86,7 @@ const App = () => {
       <h1>Glossary</h1>
       <div>
         <Search searchDatabase={searchDatabase}/>
-        <AddWord addHandler={addHandler}/>
+        <AddWord addHandler={addHandler} newWord={newWord} setNewWord={setNewWord} newDef={newDef} setNewDef={setNewDef}/>
         <WordList words={words} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
       </div>
 
