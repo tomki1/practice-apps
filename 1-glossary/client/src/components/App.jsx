@@ -18,6 +18,7 @@ const App = () => {
     axios.get('/words')
       .then(
         (response) => {
+          console.log(response.data)
           setWords(response.data);
 
       })
@@ -30,6 +31,7 @@ const App = () => {
         id: id
       }})
       .then((response) => {
+        console.log(response.data);
         loadGlossary();
       });
   }

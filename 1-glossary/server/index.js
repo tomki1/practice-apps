@@ -4,7 +4,6 @@ const path = require("path");
 const {db, addWord, getAll, updateDefinition, deleteWord, getSearched} = require("./db.js");
 const {seedData} = require("./seedScript.js");
 
-
 const app = express();
 
 app.use(express.json());
@@ -37,8 +36,6 @@ app.post('/words', (req, res) => {
       res.status(201).send(result)
     }
   });
-
-
 })
 
 app.put('/words', (req, res) => {
@@ -51,7 +48,6 @@ app.delete('/words', (req, res) => {
   deleteWord(req.body.id);
   res.status(200).send('word deleted');
 })
-
 
 
 app.all('/*', (req, res) => {
