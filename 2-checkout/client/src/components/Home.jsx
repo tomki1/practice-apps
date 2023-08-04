@@ -3,9 +3,6 @@ import React from 'react';
 
 const Home = ({page, setPage}) => {
 
-
-
-
   return (
     <div>
       <h1>Home</h1>

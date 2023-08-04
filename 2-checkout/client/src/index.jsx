@@ -6,13 +6,12 @@ import Form2 from "./components/Form2.jsx";
 import Form3 from "./components/Form3.jsx";
 import Summary from "./components/Summary.jsx";
 
-const {useState} = React;
 
+const {useState} = React;
 
 const App = () => {
 
-  const [page, setPage] = useState("form1");
-
+  const [page, setPage] = useState("home"); // changing this for testing purposes. set to home when done with project
 
   return (
     <div>
@@ -26,39 +25,6 @@ const App = () => {
       {page === "summary" ? (<Summary page={page} setPage={setPage}/>) : null}
     </div>
   )
-
-
-  // if (page === "form1") {
-  //   return (
-  //     <div>
-  //     <Form1 page={page} setPage={setPage}/>
-  //   </div>
-  //   )
-  // }
-
-  // if (page === "form2") {
-  //   return (
-  //     <div>
-  //     <Form2 page={page} setPage={setPage}/>
-  //   </div>
-  //   )
-  // }
-
-  // if (page === "form3") {
-  //   return (
-  //     <div>
-  //     <Form3 page={page} setPage={setPage}/>
-  //   </div>
-  //   )
-  // }
-
-  // if (page === "summary") {
-  //   return (
-  //     <div>
-  //     <Summary page={page} setPage={setPage}/>
-  //   </div>
-  //   )
-  // }
 }
 
 render(<App/>, document.getElementById("root"));
