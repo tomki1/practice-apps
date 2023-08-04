@@ -27,6 +27,7 @@ const Form3 = ({page, setPage}) => {
       setPage("summary")
     }
   }
+
   return (
     <div>
       <h1>Form 3</h1>
@@ -34,7 +35,7 @@ const Form3 = ({page, setPage}) => {
       <br></br>
       credit card number: <input name="card_number" onChange={(e)=>setCC(e.target.value)}/>
       <br></br>
-      card expiary date: <input name="card_expiary_date" onChange={(e)=>setCCExpDate(e.target.value)}/>
+      card expiary date: <input name="card_expiary_date" type="date" onChange={(e)=>setCCExpDate(e.target.value)}/>
       <br></br>
       CVV: <input name="card_cvv" onChange={(e)=>setCvv(e.target.value)}/>
       <br></br>
